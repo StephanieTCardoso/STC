@@ -13,22 +13,21 @@ pragma solidity 0.8.9;
 
 contract CarteiraDaOAB{
     
-    string  constant public  TipoDeDocumento   = "CarteiraDaOAB";
-    string  constant public  EntidadeEmissora  = "Ordem dos Advogados do Brasil";
-    bytes32 constant public  Seccional         = "MG";
-    string  constant public  NomeDoAfiliado    = "Stephanie T. Cardoso";
-    address constant public  NumeroDaInscricao =  0xBCe52420a8c86F499e8cF11e950C78197deEa504;
-    string           public  FiliacaoMae       = "Rosana Trindade";
-    string           public  FiliacaoPai       = "Sergio Cardoso";
-    string           public  NaturalidadeMun   = "Uberlandia";    
-    bytes2           public  NaturalidadeEst   = "MG";
-    string           private RGNumero          = "57183472";
-    bytes1           private RGDigito          = "x";
-    string           private RGEmissor         = "SSP";
-    bytes2           private RGEst             = "MG";
-    uint             private CPF               =  22981766938;
-    uint             public  DataDeNascimento  =  19901207; //coloquei no formato AAAAMMDD pq o dia é 07 e n é possível iniciar com 0. Não sei como resolver da melhor maneira.
-    string           public  ExpedidoEm        = ""; 
+    string  constant public  vTipoDeDocumento   = "CarteiraDaOAB";
+    string  constant public  vEntidadeEmissora  = "Ordem dos Advogados do Brasil";
+    bytes2  constant public  vSeccional         = "MG";
+    string  constant public  vNomeDoAfiliado    = "Stephanie T. Cardoso";
+    address constant public  vNumeroDaInscricao =  0xBCe52420a8c86F499e8cF11e950C78197deEa504;
+    string           public  vFiliacaoMae       = "Rosana Trindade";
+    string           public  vFiliacaoPai       = "Sergio Cardoso";
+    string           public  vNaturalidadeMun   = "Uberlandia";    
+    bytes2           public  vNaturalidadeEst   = "MG";
+    uint64           private vRGNumero          =  57183472;  //usei numérico para economizar espaço, pq uint64 corresponde a 4 bytes, que é suficiente para guardar o número de 8 números de RG. Se usar bytes8, precisarei de 8 bytes. 
+    bytes1           private vRGDigito          = "x";        //alfanumérico e será sempre 1
+    string           private vRGEmissor         = "SSP";
+    bytes2           private vRGEst             = "MG";
+    uint128          private vCPF               =  22981766938;
+    uint             public  vDataDeNascimento  =  19901207; //coloquei no formato AAAAMMDD pq o dia é 07 e n é possível iniciar com 0. Não sei como resolver da melhor maneira.
+    string           public  vExpedidoEm        = ""; 
     
 }
-

@@ -1,0 +1,38 @@
+/* 
+Treinamento Curso PUC
+Exercício proposto na aula de 14.10.2021
+1a versao
+*/
+
+
+pragma solidity 0.8.9;
+
+//SPDX-License-Identifier: MIT
+
+contract CompraEVenda {
+
+    string public NomeDoComprador;
+    string NomeDoVendedor;
+    string NumeroDaMatricula;
+    string Cartorio;
+    string DataDeVencimento;
+    bool   Quitado = false;
+    uint   ValorTotal;
+    uint   ValorDaEntrada;
+    uint   ValorEmAberto;
+    uint   ValorDaParcela;
+    uint   Saldo;
+    uint   QuantidadeDeParcelas;
+    uint   PorcentagemDaMulta;
+    
+    function PagarEntrada (uint _ValorPagamento) public returns (uint, string memory) {
+        ValorDaEntrada = _ValorPagamento;
+        ValorEmAberto = ValorTotal - _ValorPagamento;
+        return (ValorEmAberto, "Valor em Aberto");
+    }
+    
+     //   function CalcularValorDaParcela (uint )
+
+//    function PagarParcela (uint pValorDaParcela) public returns (uint, string memory)
+//        vValorDaParcela = 
+}

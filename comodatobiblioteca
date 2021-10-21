@@ -1,0 +1,78 @@
+/* 
+Curso PUC Smart Contracts - Professores Flávio e Nathaly - Aluna Stephanie T. Cardoso
+Exercício proposto na aula de 19.10.2021
+Contrato de Comodato de Livros de uma Biblioteca
+*/
+
+pragma solidity 0.8.9;
+
+//SPDX-License-Identifier: MIT 
+
+contract ContratoComodatoBiblioteca {
+
+    string constant public vBiblioteca = "Biblioteca Publica da ZL de SP";
+    uint   vCodigoDoLivro;
+    string vTituloDoLivro;
+    string vAutorDoLivro;
+    string vLocalizacaoDoLivro;
+    bool   vDisponivel = false;  // True = Disponível encerrado, False = Emprestado //acho que não precisa pq se está usando o smart contract
+    uint   vDataDoEmprestimo;
+    string vNomeDoEmprestante;
+    uint   public vPrazoParaDevolucao = 15; // 1296000; //15 dias em Unit Epoch
+    uint   public vDataPrevistaParaDevolucao;
+    uint   public vDataDaDevolucao; // Ex. 15.11.2021 - Em Unix Time Unit Epoch 1637020111
+    uint   public vDiasDeAtraso; 
+    uint   public vMultaPorDiaDeAtraso = 7; //reais;
+    uint   public vValorTotalDaMulta;
+    
+constructor (
+    uint   pCodigoDoLivro,
+    string memory pNomeDoEmprestante
+    )
+    {vCodigoDoLivro     = pCodigoDoLivro;
+     vNomeDoEmprestante = pNomeDoEmprestante;
+     vDataDoEmprestimo  = block.timestamp;
+    }
+
+function CalcularDiasDeAtraso (uint pDataDaDevolucao) public returns (uint){
+    vDiasDeAtraso = StoD( pDataDaDevolucao - ( vDataDoEmprestimo + DtoS( vPrazoParaDevolucao ) ) );
+    return vDiasDeAtraso;
+}
+
+function VerificarDiasDeAtraso ( ) public view returns (uint, string memory, uint, string memory, uint, string memory){
+    return (StoD(vDataDoEmprestimo + DtoS(vPrazoParaDevolucao)), "Data para devolucao", vDataDoEmprestimo, "Data do Emprestimo", ((vDataDoEmprestimo + vPrazoParaDevolucao) - vPrazoParaDevolucao), "Prazo maximo");
+}
+
+function CalcularMultaDeAtraso ( ) public returns (uint){
+    vValorTotalDaMulta = vDiasDeAtraso * vMultaPorDiaDeAtraso;
+    return vValorTotalDaMulta;
+}
+
+function DtoS (uint pDias) public pure returns (uint){
+    return (pDias * 24 * 60 * 60);
+}
+
+function StoD (uint pSegundos) public pure returns (uint){
+    return (pSegundos / 60 / 60 / 24);
+}
+
+//function VerificarDataDaDevolucao () public view returns (uint, string memory){
+//    return (vDataDoEmprestimo + vPrazoParaDevolucao, "Data para devolucao");
+
+
+
+
+
+
+
+
+
+
+
+//FUNCAO VIEW - CONSULTA DA DISPONIBILIDADE DO LIVRO
+
+//function ConsultarDisponibilidadeLivro () public {
+//    require (vDisponivel = true, "Sim");
+//}
+    
+}

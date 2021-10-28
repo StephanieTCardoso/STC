@@ -25,7 +25,7 @@ contract CompraVenda {
     uint public dataDeVencimentoEntrada;
     uint public dataDeVencimentoDaParcela; 
     uint public numeroDaParcela = 0; // 0 = Entrada
-    uint public peridiocidade; //em dias
+    uint public prazoParaPagamentos; //em dias
 //    uint public proximaParcela;
     
     
@@ -37,7 +37,7 @@ contract CompraVenda {
         string memory _cartorio,
         address _vendedor,
  //       uint _dataDeCelebracao,
-        uint _peridiocidade
+        uint _prazoParaPagamentos
  //       uint _proximaParcela
         ) 
     {
@@ -50,18 +50,18 @@ contract CompraVenda {
         valorEmAberto = valorTotal;
         valorDaParcela = funcaoValorParcela();
   //      dataDeCelebracao = _dataDeCelebracao;
-        peridiocidade = _peridiocidade; // em dias
+        prazoParaPagamentos = _prazoParaPagamentos; // em dias
   //      proximaParcela; _proximaParcela;
         
     }
     
     function calcularVencimentos () public returns (uint) {
             if (numeroDaParcela == 0){
-                dataDeVencimentoEntrada = dataDeCelebracao + DtoS(peridiocidade);
+                dataDeVencimentoEntrada = dataDeCelebracao + DtoS(prazoParaPagamentos);
                 return (dataDeVencimentoEntrada);
                 }
             if (numeroDaParcela >= 1){
-                dataDeVencimentoDaParcela = (dataDeVencimentoEntrada + (numeroDaParcela * DtoS(peridiocidade)));
+                dataDeVencimentoDaParcela = (dataDeVencimentoEntrada + (numeroDaParcela * DtoS(prazoParaPagamentos)));
                 return (dataDeVencimentoDaParcela);
             }
 //        return(dataDeVencimentoEntrada);
@@ -73,9 +73,9 @@ contract CompraVenda {
         require(valorEmAberto   == valorTotal,             "Entrada ja foi paga.");
             comprador                 = msg.sender;
             valorEmAberto             = valorTotal - _valorPagamento;
-            dataDeVencimentoEntrada   = dataDeCelebracao + DtoS(peridiocidade);
+            dataDeVencimentoEntrada   = dataDeCelebracao + DtoS(prazoParaPagamentos);
             numeroDaParcela           = numeroDaParcela + 1;
-            dataDeVencimentoDaParcela = (dataDeVencimentoEntrada + DtoS(peridiocidade));
+            dataDeVencimentoDaParcela = (dataDeVencimentoEntrada + DtoS(prazoParaPagamentos));
         return(valorEmAberto, "valor em aberto");
     }
     
